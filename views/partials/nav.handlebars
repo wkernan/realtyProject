@@ -1,0 +1,35 @@
+<header>
+	<div class="navbar-fixed">
+		<nav id="navStyle" role="navigation">
+		  <div class="nav-wrapper container">
+		    <a id="logo-container" href="/" class="brand-logo">Rainbow Realty</a>
+		    <ul class="right hide-on-med-and-down">
+		      <li><a href="/search">Agent Search</a></li>
+		      {{#if user}}
+		        <li><a href="/profile">Hi, {{user.firstName}}!</a></li>
+		        <li><a href="/logout">Logout</a></li>
+		      {{else}}
+		        <li><a href="/login">Agent Login</a></li>
+		        <li><a href="/signup">Agent Signup</a></li>
+		      {{/if}}
+		      <li><a href="/about">About Us</a></li>
+		      <li><a href="#">Contact Us</a></li>
+		    </ul>
+
+		    <ul id="nav-settings" class="side-nav">
+		      <li><a href="/search">Agent Search</a></li>
+		      {{#if user}}
+		        <li><a href="/profile">Hi, {{user.firstName}}!</a></li>
+		        <li><a href="/logout">Logout</a></li>
+		      {{else}}
+		        <li><a href="/login">Agent Login</a></li>
+		        <li><a href="/signup">Agent Signup</a></li>
+		      {{/if}}
+		      <li><a href="/about">About Us</a></li>
+		      <li><a href="#">Contact Us</a></li>
+		    </ul>
+		    <a href="#" data-activates="nav-settings" class="button-collapse right"><i class="material-icons">more_vert</i></a>
+		  </div>
+		</nav>
+	</div>
+</header>
