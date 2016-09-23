@@ -5,15 +5,18 @@
 		    <a id="logo-container" href="/" class="brand-logo">Rainbow Realty</a>
 		    <ul class="right hide-on-med-and-down">
 		      <li><a href="/search">Agent Search</a></li>
+		      <li><a href="/about">About Us</a></li>
+		      <li><a href="#">Contact Us</a></li>
 		      {{#if user}}
-		        <li><a href="/profile">Hi, {{user.firstName}}!</a></li>
-		        <li><a href="/logout">Logout</a></li>
+		        <li><a class="dropdown-button" href="#" data-activates="dropdown1" data-beloworigin="true">Hi, {{user.local.email}}!</a></li>
+		        <ul class="dropdown-content" id="dropdown1">
+		        	<li><a href="/profile">Profile</a></li>
+		        	<li><a href="/logout">Logout</a></li>
+	        	</ul>
 		      {{else}}
 		        <li><a href="/login">Agent Login</a></li>
 		        <li><a href="/signup">Agent Signup</a></li>
 		      {{/if}}
-		      <li><a href="/about">About Us</a></li>
-		      <li><a href="#">Contact Us</a></li>
 		    </ul>
 
 		    <ul id="nav-settings" class="side-nav">

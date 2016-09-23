@@ -14,10 +14,10 @@ mongoose.connect(configDB.url);
 var app = express();
 
 //require('./config/passport')(passport);
-// This says that if we do root or /, we mean to look in the public folder.
+//This says that if we do root or /, we mean to look in the public folder.
 app.use(express.static(__dirname + '/'));
 
-// require('./config/passport')(passport);
+require('./config/passport')(passport);
 
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({
