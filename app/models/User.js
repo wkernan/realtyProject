@@ -1,10 +1,30 @@
 var mongoose = require('mongoose');
-var bcrypt = require('bcrypt');
+var bcrypt = require('bcryptjs');
 
 var userSchema = mongoose.Schema({
 	local: {
+		firstName: String,
+		lastName: String,
+		company: String,
+		website: String,
+		address1: String,
+		address2: String,
+		country: String,
+		state: String,
+		city: String,
+		zipcode: String,
+		phone: String,
+		cell: String,
 		email: String,
-		password: String
+		password: String,
+		orientation: String,
+		bio: String,
+		license: String,
+		license_year: Number,
+		nar: Boolean,
+		distinctions: String,
+		specialties: String,
+		area: [{country: String, state: String, city: String, area: String}]
 	}
 });
 
