@@ -1,5 +1,27 @@
 {{>nav}}
-<h1>Profile</h1>
-<h5>id: {{user.local._id}}</h5>
-<h5>email: {{user.local.email}}</h5>
-<h5>pw: {{user.local.password}}</h5>
+<div class="container">
+	<h1>Profile</h1>
+	<h5>id: {{user._id}}</h5>
+	<h5>email: {{user.local.email}}</h5>
+	<h5>pw: {{user.local.password}}</h5>
+	<h5>first name: {{user.local.firstName}}</h5>
+	<h5>last name: {{user.local.lastName}}</h5>
+
+	<div class="row">
+		<form class="col s12 l6" action="/profile?_method=PUT" method="POST">
+	    <div class="row">
+	      <div class="input-field col s6">
+	        <input id="first_name" type="text" name="firstName">
+	        <label>First Name</label>
+	      </div>
+	      <div class="input-field col s6">
+	        <input id="last_name" type="text" name="lastName">
+	        <label>Last Name</label>
+	      </div>
+	    </div>
+	    <button class="btn waves-effect waves-light green" type="submit">Submit
+	    	<i class="material-icons right">send</i>
+	  	</button>
+		</form>
+	</div>
+</div>

@@ -1,3 +1,5 @@
+var User = require('./models/User');
+
 module.exports = function(app, passport) {
 
 	app.get('/', function(req,res) {
@@ -33,8 +35,18 @@ module.exports = function(app, passport) {
 	});
 
 	app.get('/profile', isLoggedIn, function(req, res) {
+		console.log(req.user._id);
 		res.render('profile', {user: req.user})
 	});
+
+	app.put('/profile', function(req, res) {
+		console.log(req.user._id);
+		console.log(req.body.firstName);
+		User.findOneAndUpdate({ '_id': req.user._id}, {$set: {'local.firstName': req.body.firstName, 'local.lastName': req.body.lastName}}, {new: true})
+		.exec(function(err, result) {
+			res.redirect('/profile');
+		})
+	})
 
 	app.get('/admin', isAdmin, function(req, res) {
 		res.render('admin', {user: req.user})
