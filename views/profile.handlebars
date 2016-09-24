@@ -6,22 +6,35 @@
 	<h5>pw: {{user.local.password}}</h5>
 	<h5>first name: {{user.local.firstName}}</h5>
 	<h5>last name: {{user.local.lastName}}</h5>
-
-	<div class="row">
-		<form class="col s12 l6" action="/profile?_method=PUT" method="POST">
-	    <div class="row">
-	      <div class="input-field col s6">
-	        <input id="first_name" type="text" name="firstName">
-	        <label>First Name</label>
-	      </div>
-	      <div class="input-field col s6">
-	        <input id="last_name" type="text" name="lastName">
-	        <label>Last Name</label>
-	      </div>
-	    </div>
-	    <button class="btn waves-effect waves-light green" type="submit">Submit
-	    	<i class="material-icons right">send</i>
-	  	</button>
-		</form>
+	<h5>service city: {{user.local.city}}</h5>
+	<h5>service state: {{user.local.state}}</h5>
+		<div class="row">
+			<form class="col s12 l6" action="/profile?_method=PUT" method="POST">
+	    		<div class="row">
+	      			<div class="input-field col s6">
+	        			<input id="first_name" type="text" name="firstName">
+	        			<label>First Name</label>
+	      			</div>
+	      			<div class="input-field col s6">
+	        			<input id="last_name" type="text" name="lastName">
+	        			<label>Last Name</label>
+	      			</div>
+	    		</div>
+	    		<div class="row">
+	    			<h5>Service Area</h5>
+	    			<div class="input-field col s6">
+	    				<input id="service_area_city" type="text" name="serviceAreaCity">
+	    				<label>City</label>
+	    			</div>
+	    			<div class="input-field col s6">
+	    				<input id="service_area_state" type="text" name="serviceAreaState">
+	    				<label>State</label>
+	    			</div>
+	    		</div>
+	    		<button class="btn waves-effect waves-light green" type="submit">Submit
+	    			<i class="material-icons right">send</i>
+	  			</button>
+			</form>
+		</div>
+		</div>
 	</div>
-</div>

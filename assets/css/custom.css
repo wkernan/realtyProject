@@ -52,3 +52,9 @@
     text-align: center;
     color: #fff;
 }
+
+.searchResultItem{
+    border: solid;
+    border-width: 1px;
+    width: 25%;
+}

@@ -31,7 +31,10 @@ module.exports = function(app, passport) {
 	}));
 
 	app.get('/search', function(req, res) {
-		res.render('search', {user: req.user})
+		User.find({'local.city': req.query.city, 'local.state': req.query.state}).exec(function(err, result){
+			console.log(result);
+			res.render('search', {user: req.user, agents: result});
+		});
 	});
 
 	app.get('/profile', isLoggedIn, function(req, res) {
@@ -40,9 +43,14 @@ module.exports = function(app, passport) {
 	});
 
 	app.put('/profile', function(req, res) {
-		console.log(req.user._id);
-		console.log(req.body.firstName);
-		User.findOneAndUpdate({ '_id': req.user._id}, {$set: {'local.firstName': req.body.firstName, 'local.lastName': req.body.lastName}}, {new: true})
+		var query = {};
+		for(key in req.body){
+			if(req.body[key] != ''){
+				query[key] = req.body[key];				
+			}
+		}
+		console.log(query);
+		User.findOneAndUpdate({ '_id': req.user._id}, {$set: {'local.firstName': req.body.firstName, 'local.lastName': req.body.lastName, 'local.city': req.body.serviceAreaCity, 'local.state': req.body.serviceAreaState}}, {new: true})
 		.exec(function(err, result) {
 			res.redirect('/profile');
 		})
