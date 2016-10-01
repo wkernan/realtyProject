@@ -1,7 +1,8 @@
 var mongoose = require('mongoose');
 var bcrypt = require('bcryptjs');
+var Schema = mongoose.Schema;
 
-var userSchema = mongoose.Schema({
+var userSchema = new Schema({
 	local: {
 		firstName: String,
 		lastName: String,
@@ -24,7 +25,8 @@ var userSchema = mongoose.Schema({
 		nar: Boolean,
 		distinctions: String,
 		specialties: String,
-		area: [{country: String, state: String, city: String, area: String}]
+		areas: [{type: Schema.Types.ObjectId,
+      ref: 'Area'}]
 	}
 });
 

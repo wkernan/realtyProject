@@ -20,9 +20,10 @@
 <div class="row" id="searchResultList">
 	{{#each agents}}
 	<div class="searchResultItem">
-		<h5>Name: {{this.local.firstName}}</h5>
-		<h5>City: {{this.local.city}}</h5>
-		<h5>State: {{this.local.state}}</h5>
+		<h5>Name: {{this.local.firstName}} {{this.local.lastName}}</h5>
+		{{#each this.local.area}}
+			<h5>City: {{this.city}}, {{this.state}}</h5>
+		{{/each}}
 	</div>
 	{{/each}}
 </div>

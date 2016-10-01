@@ -1,4 +1,5 @@
 var User = require('./models/User');
+var Area = require('./models/Area');
 
 module.exports = function(app, passport) {
 
@@ -38,8 +39,13 @@ module.exports = function(app, passport) {
 	});
 
 	app.get('/profile', isLoggedIn, function(req, res) {
-		console.log(req.user._id);
-		res.render('profile', {user: req.user})
+		User.find({'_id': req.user._id})
+		.populate('areas')
+		.exec(function(err, result) {
+			result = result[0];
+			console.log(result.local);
+			res.render('profile', {user: req.user, areas: result.local.areas});
+		})
 	});
 
 	app.put('/profile', function(req, res) {
@@ -50,9 +56,19 @@ module.exports = function(app, passport) {
 			}
 		}
 		console.log(query);
-		User.findOneAndUpdate({ '_id': req.user._id}, {$set: {'local.firstName': req.body.firstName, 'local.lastName': req.body.lastName, 'local.city': req.body.serviceAreaCity, 'local.state': req.body.serviceAreaState}}, {new: true})
+		User.findOneAndUpdate({ '_id': req.user._id}, {$set: {'local.firstName': req.body.firstName, 'local.lastName': req.body.lastName}}, {new: true})
 		.exec(function(err, result) {
 			res.redirect('/profile');
+		})
+	})
+
+	app.post('/profile', function(req, res) {
+		var newArea = new Area({'country': req.body.serviceAreaCountry, 'city': req.body.serviceAreaCity, 'state': req.body.serviceAreaState, 'area': req.body.serviceAreaArea});
+		newArea.save(function(err,doc) {
+			User.findOneAndUpdate({'_id': req.user._id}, {$push: {'local.areas': doc._id}}, {new: true})
+			.exec(function(err, result) {
+				res.redirect('/profile');
+			})
 		})
 	})
 
