@@ -8,7 +8,13 @@
 		      <li><a href="/about">About Us</a></li>
 		      <li><a href="#">Contact Us</a></li>
 		      {{#if user}}
-		        <li><a class="dropdown-button" href="#" data-activates="dropdown1" data-beloworigin="true">Hi, {{user.local.email}}!</a></li>
+		        <li><a class="dropdown-button" href="#" data-activates="dropdown1" data-beloworigin="true">
+		        {{#if user.local.firstName}}
+		        	Hi! {{user.local.firstName}}
+		        {{else}}
+		        	{{user.local.email}}
+		        {{/if}}
+		        </a></li>
 		        <ul class="dropdown-content" id="dropdown1">
 		        	<li><a href="/profile">Profile</a></li>
 		        	<li><a href="/logout">Logout</a></li>

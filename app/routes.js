@@ -40,13 +40,20 @@ module.exports = function(app, passport) {
 
 	app.get('/profile', isLoggedIn, function(req, res) {
 		User.find({'_id': req.user._id})
-		.populate('areas')
+		.populate('local.areas')
 		.exec(function(err, result) {
 			result = result[0];
-			console.log(result.local);
+			console.log(result);
 			res.render('profile', {user: req.user, areas: result.local.areas});
 		})
 	});
+
+	app.delete('/profile/:id', isLoggedIn, function(req, res) {
+		Area.find({'_id': req.params.id}).remove()
+		.exec(function(err, result) {
+			res.redirect('/profile');
+		})
+	})
 
 	app.put('/profile', function(req, res) {
 		var query = {};
@@ -87,8 +94,21 @@ module.exports = function(app, passport) {
 
 };
 
-function isAdmin() {
-	
+function isAdmin(req,res,next) {
+	if(req.isAuthenticated()) {
+		User.find({'_id': req.user._id})
+		.exec(function(err,result) {
+			if(err) {
+				res.redirect('/');
+			}
+			var result = result[0];
+			if(result.local.isAdmin)
+				return next();
+			res.redirect('/');
+		})
+	} else {
+		res.redirect('/');
+	}
 }
 
 function isLoggedIn(req, res, next) {

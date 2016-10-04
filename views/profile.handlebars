@@ -7,7 +7,11 @@
 	<h5>first name: {{user.local.firstName}}</h5>
 	<h5>last name: {{user.local.lastName}}</h5>
 	{{#each areas}}
-		<h5>area: {{this.city}}, {{this.state}}</h5>
+		<form action="/profile/{{this._id}}?_method=delete" method="POST">
+			<h5>area: {{this.city}}, {{this.state}}</h5>
+			<button class="btn waves-effect waves-light green" type="submit">Delete
+			</button>
+		</form>
 	{{/each}}
 		<div class="row">
 			<form class="col s12 l6" action="/profile?_method=PUT" method="POST">

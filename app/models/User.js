@@ -25,6 +25,10 @@ var userSchema = new Schema({
 		nar: Boolean,
 		distinctions: String,
 		specialties: String,
+		isAdmin: {
+			type: Boolean,
+			default: 0
+		},
 		areas: [{type: Schema.Types.ObjectId,
       ref: 'Area'}]
 	}
