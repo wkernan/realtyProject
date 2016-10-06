@@ -1,0 +1,6 @@
+{{> nav}}
+
+<h1>name: {{agent.local.firstName}}</h1>
+{{#each agent.local.areas}}
+	<h4>area: {{this.city}}, {{this.state}}</h4>
+{{/each}}

@@ -23,6 +23,7 @@ var userSchema = new Schema({
 		license: String,
 		license_year: Number,
 		nar: Boolean,
+		image: String,
 		distinctions: String,
 		specialties: String,
 		isAdmin: {

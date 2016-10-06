@@ -1,57 +1,127 @@
 {{>nav}}
 <div class="container">
-	<h1>Profile</h1>
-	<h5>id: {{user._id}}</h5>
-	<h5>email: {{user.local.email}}</h5>
-	<h5>pw: {{user.local.password}}</h5>
-	<h5>first name: {{user.local.firstName}}</h5>
-	<h5>last name: {{user.local.lastName}}</h5>
-	{{#each areas}}
-		<form action="/profile/{{this._id}}?_method=delete" method="POST">
-			<h5>area: {{this.city}}, {{this.state}}</h5>
-			<button class="btn waves-effect waves-light green" type="submit">Delete
-			</button>
-		</form>
-	{{/each}}
-		<div class="row">
-			<form class="col s12 l6" action="/profile?_method=PUT" method="POST">
-	    		<div class="row">
-	      			<div class="input-field col s6">
-	        			<input id="first_name" type="text" name="firstName" value="{{user.local.firstName}}">
-	        			<label>First Name</label>
-	      			</div>
-	      			<div class="input-field col s6">
-	        			<input id="last_name" type="text" name="lastName" value="{{user.local.lastName}}">
-	        			<label>Last Name</label>
-	      			</div>
-	    		</div>
-	    		<button class="btn waves-effect waves-light green" type="submit">Submit
-	    			<i class="material-icons right">send</i>
-	  			</button>
-			</form>
+	<div class="row profile">
+		<div class="col s12 l8">
+			<div class="row">
+				<form action="/profile/{{this._id}}?_method=PUT" method="POST">
+				<h4 class="col l12" style="margin-top: 0">Personal</h4>
+				<hr>
+					<div class="col s12 l6">
+						<div class="input-field">
+							<input id="first_name" type="text" name="firstName" value="{{user.local.firstName}}">
+							<label>First Name</label>
+						</div>
+						<div class="input-field">
+							<input id="last_name" type="text" name="lastName" value="{{user.local.lastName}}">
+							<label>Last Name (not visible to buyer)</label>
+						</div>
+					</div>
+					<div class="col s12 l6">
+						<div class="input-field">
+							<input id="cell" type="text" name="cell" value="{{user.local.cell}}">
+							<label>Phone</label>
+						</div>
+						<div class="input-field">
+							<input id="email" type="email" name="email" value="{{user.local.email}}">
+							<label>Email</label>
+						</div>
+					</div>
+				<h4 class="col l12">Company</h4>
+				<hr>
+					<div class="col s12 l6">
+						<div class="input-field">
+							<input id="company_name" type="text" name="company" value="{{user.local.company}}">
+							<label>Company</label>
+						</div>
+					</div>
+					<div class="col s12 l6">
+						<div class="input-field">
+							<input id="company_phone" type="text" name="phone" value="{{user.local.phone}}">
+							<label>Company Number</label>
+						</div>
+					</div>
+					<div class="col l12">
+	    			<button class="btn waves-effect waves-light green" type="submit">Update
+		    			<i class="material-icons right">send</i>
+		  			</button>
+	  			</div>
+				</form>
+			</div>
 		</div>
-		<div class="row">
-			<form class="col s12 l6" action="/profile" method="POST">
-  			<h5>Service Area</h5>
-  			<div class="input-field col s6">
-  				<input id="service_area_country" type="text" name="serviceAreaCountry">
-  				<label>Country</label>
-  			</div>
-  			<div class="input-field col s6">
-  				<input id="service_area_city" type="text" name="serviceAreaCity">
-  				<label>City</label>
-  			</div>
-  			<div class="input-field col s6">
-  				<input id="service_area_state" type="text" name="serviceAreaState">
-  				<label>State</label>
-  			</div>
-  			<div class="input-field col s6">
-  				<input id="service_area_area" type="text" name="serviceAreaArea">
-  				<label>Metropolitan Area</label>
-  			</div>
-  			<button class="btn waves-effect waves-light green" type="submit">Submit
-  				<i class="material-icons right">send</i>
-				</button>
-			</form>
+		<div class="col s12 l4">
+			{{#if user.local.image}}
+				<img id="profile-img" src="../app/uploads/{{user.local.image}}">
+			{{/if}}
+			<h5>Add a profile image</h5>
+	    <div class="file-field input-field">
+	      <div class="btn">
+	        <span>File</span>
+	        <input type="file" id="upload-input" name="uploads[]" multiple="multiple" accept=".jpeg,.jpg,.png">
+	      </div>
+	      <div class="file-path-wrapper">
+	        <input class="file-path validate" type="text">
+	      </div>
+    	</div>
+    	<div class="service">
+    		<ul style="display:inline-flex">
+    			<li style="margin-right: 10px">
+    				<h5>Service Areas</h5>
+  				</li>
+  				<li>
+    				<a class="btn-floating waves-effect waves-light modal-trigger green" href="#addService" style="margin-top: 7px"><i class="material-icons">note_add</i></a>
+  				</li>
+				</ul>
+    		<hr>
+  		</div>
+			{{#each areas}}
+				<div class="row">
+					<div class="col l12">
+						<div class="card blue-grey center-align">
+							<form action="/profile/{{this._id}}?_method=delete" method="POST">
+								<div class="card-content white-text">
+									<h5>{{this.country}}</h5>
+									<h5>{{this.city}}, {{this.state}}</h5>
+									<h5>{{this.area}}</h5>
+								</div>
+								<div class="card-action">
+									<button class="btn-floating waves-effect waves-light red areas right" type="submit"><i class="material-icons">delete</i>
+									</button>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			{{/each}}
 		</div>
+	</div>
+	<div id="addService" class="modal">
+		<div class="modal-content">
+			<div class="row">
+				<form class="col l12" action="/profile" method="POST">
+	  			<h5>Service Area</h5>
+	  			<div class="input-field col s6">
+	  				<input id="service_area_country" type="text" name="serviceAreaCountry">
+	  				<label>Country</label>
+	  			</div>
+	  			<div class="input-field col s6">
+	  				<input id="service_area_city" type="text" name="serviceAreaCity">
+	  				<label>City</label>
+	  			</div>
+	  			<div class="input-field col s6">
+	  				<input id="service_area_state" type="text" name="serviceAreaState">
+	  				<label>State</label>
+	  			</div>
+	  			<div class="input-field col s6">
+	  				<input id="service_area_area" type="text" name="serviceAreaArea">
+	  				<label>Metropolitan Area</label>
+	  			</div>
+	  			<button class="btn waves-effect waves-light green" type="submit">Submit
+	  				<i class="material-icons right">send</i>
+					</button>
+				</form>
+			</div>
+		</div>
+	</div>
 </div>
+
+<script src="../assets/js/upload.js"></script>

@@ -1,5 +1,17 @@
 var User = require('./models/User');
 var Area = require('./models/Area');
+var nodemailer = require('nodemailer');
+var transporter = nodemailer.createTransport('smtps://wkernan%40gmail.com:H00k3m99@smtp.gmail.com');
+var formidable = require('formidable');
+var path = require('path');
+var fs = require('fs');
+
+// var mailOptions = {
+// 	from: '"Bill Kernan ?" <wkernan@gmail.com>',
+// 	to: 'wkernan@gmail.com',
+// 	subject: 'Worked',
+// 	text: 'Looks like it is working'
+// };
 
 module.exports = function(app, passport) {
 
@@ -19,7 +31,40 @@ module.exports = function(app, passport) {
 		successRedirect: '/profile',
 		failureRedirect: '/login',
 		failureFlash: true
-	}))
+	}));
+
+	app.post('/upload', function(req, res) {
+		  // create an incoming form object
+	  var form = new formidable.IncomingForm();
+
+	  // specify that we want to allow the user to upload multiple files in a single request
+	  form.multiples = true;
+
+	  // store all uploads in the /uploads directory
+	  form.uploadDir = path.join(__dirname, '/uploads');
+
+	  // every time a file has been uploaded successfully,
+	  // rename it to it's orignal name
+	  form.on('file', function(field, file) {
+	  	User.findOneAndUpdate({'_id': req.user._id}, {$set: {'local.image': file.name}}, {new:true})
+	  	.exec(function(err, result) {
+	    	fs.rename(file.path, path.join(form.uploadDir, file.name));
+	  	})
+	  });
+
+	  // log any errors that occur
+	  form.on('error', function(err) {
+	    console.log('An error has occured: \n' + err);
+	  });
+
+	  // once all the files have been uploaded, send a response to the client
+	  form.on('end', function() {
+	    res.end('success');
+	  });
+
+	  // parse the incoming request containing the form data
+	  form.parse(req);
+	});
 
 	app.get('/signup', function(req, res) {
 		res.render('signup', {user: req.user});
@@ -37,6 +82,15 @@ module.exports = function(app, passport) {
 			res.render('search', {user: req.user, agents: result});
 		});
 	});
+
+	app.get('/agent/:id', function(req,res) {
+		User.find({'_id': req.params.id})
+		.populate('local.areas')
+		.exec(function(err, result) {
+			result = result[0];
+			res.render('agent', {agent: result});
+		})
+	})
 
 	app.get('/profile', isLoggedIn, function(req, res) {
 		User.find({'_id': req.user._id})
@@ -80,6 +134,12 @@ module.exports = function(app, passport) {
 	})
 
 	app.get('/admin', isAdmin, function(req, res) {
+		// transporter.sendMail(mailOptions, function(err, info) {
+		// 	if(err) {
+		// 		return console.log(err);
+		// 	}
+		// 	console.log('message sent: ' + info.response);
+		// })
 		res.render('admin', {user: req.user})
 	});
 

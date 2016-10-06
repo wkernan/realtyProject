@@ -58,3 +58,18 @@
     border-width: 1px;
     width: 25%;
 }
+
+.profile {
+    margin-top: 40px;
+}
+
+#profile-img {
+    height: 200px;
+    width: 300px;
+    margin-bottom: 20px;
+}
+
+hr {
+    border-width: 2px;
+    border-style: solid;
+}
