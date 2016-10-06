@@ -3,31 +3,114 @@
 	<div class="row profile">
 		<div class="col s12 l8">
 			<div class="row">
-				<form action="/profile/{{this._id}}?_method=PUT" method="POST">
-				<h4 class="col l12" style="margin-top: 0">Personal</h4>
-				<hr>
+				<div class="col s12">
+					<div style="inline-flex">
+						<h4 style="margin-top:0">Profile</h4>
+					</div>
+					<hr>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col s12 l6">
+					{{#if user.local.image}}
+						<img class="responsive-img z-depth-1" id="profile-img" src="../app/uploads/{{user.local.image}}">
+					{{/if}}
+				</div>
+				<div class="col s12 l6">
+					<h5>Add a profile image</h5>
+		    	<div class="file-field input-field">
+		      	<div class="btn grey darken-1">
+			        <span>File</span>
+			        <input type="file" id="upload-input" name="uploads[]" multiple="multiple" accept=".jpeg,.jpg,.png">
+			      </div>
+			      <div class="file-path-wrapper">
+		        	<input class="file-path validate" type="text">
+		      	</div>
+	    		</div>
+    		</div>
+  		</div>
+			<form action="/profile/{{this._id}}?_method=PUT" method="POST">
+	  		<div class="row">
 					<div class="col s12 l6">
 						<div class="input-field">
 							<input id="first_name" type="text" name="firstName" value="{{user.local.firstName}}">
 							<label>First Name</label>
 						</div>
+					</div>
+					<div class="col s12 l6">
 						<div class="input-field">
 							<input id="last_name" type="text" name="lastName" value="{{user.local.lastName}}">
 							<label>Last Name (not visible to buyer)</label>
 						</div>
 					</div>
+				</div>
+				<div class="row">
 					<div class="col s12 l6">
 						<div class="input-field">
 							<input id="cell" type="text" name="cell" value="{{user.local.cell}}">
 							<label>Phone</label>
 						</div>
+					</div>
+					<div class="col s12 l6">
 						<div class="input-field">
 							<input id="email" type="email" name="email" value="{{user.local.email}}">
 							<label>Email</label>
 						</div>
 					</div>
-				<h4 class="col l12">Company</h4>
-				<hr>
+				</div>
+				<div class="row">
+					<div class="col s12 l6">
+						<div class="input-field">
+							<input id="country" type="text" name="country" value="{{user.local.country}}">
+							<label>Country</label>
+						</div>
+					</div>
+					<div class="col s12 l6">
+						<div class="input-field">
+							<input id="address1" type="text" name="address1" value="{{user.local.address1}}">
+							<label>Address</label>
+						</div>
+						<div class="input-field">
+							<input id="address2" type="text" name="address2" value="{{user.local.address2}}">
+							<label>Address</label>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col s12 l4">
+						<div class="input-field">
+							<input id="city" type="text" name="city" value="{{user.local.city}}">
+							<label>City</label>
+						</div>
+					</div>
+					<div class="col s12 l4">
+						<div class="input-field">
+							<input id="state" type="text" name="state" value="{{user.local.state}}">
+							<label>State</label>
+						</div>
+					</div>
+					<div class="col s12 l4">
+						<div class="input-field">
+							<input id="zipcode" type="text" name="zipcode" value="{{user.local.zipcode}}">
+							<label>Zipcode</label>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col s12 l6">
+						<div class="input-field">
+							<input id="website" type="text" name="website" value="{{user.local.website}}">
+							<label>Website</label>
+						</div>
+					</div>
+					<div class="col s12 l6">
+						<div class="input-field">
+							<input id="license_year" type="number" name="license_year" value="{{user.local.license_year}}">
+							<label>First Year Licensed</label>
+						</div>
+					</div>
+				</div>
+				<div class="row">
 					<div class="col s12 l6">
 						<div class="input-field">
 							<input id="company_name" type="text" name="company" value="{{user.local.company}}">
@@ -40,35 +123,82 @@
 							<label>Company Number</label>
 						</div>
 					</div>
+				</div>
+				<div class="row">
+					<div class="input-field col s12 l6">
+						<select>
+							<option value="" disabled selected>Orientation</option>
+							<option value="gay">Gay</option>
+							<option value="lesbian">Lesbian</option>
+							<option value="friendly">Gay/Lesbian Friendly</option>
+							<label>Orientation</label>
+						</select>
+					</div>
+					<div class="input-field col s12 l6">
+						<select>
+							<option value="" disabled selected>License Type</option>
+							<option value="agent">Real Estate Agent</option>
+							<option value="Abroker">Associate Broker</option>
+							<option value="broker">Broker</option>
+							<option value="owner">Broker/Owner</option>
+						</select>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col l12">
+				    <p>
+				      <input type="checkbox" class="filled-in checkbox-green" id="nar" />
+				      <label for="nar">Member of the National Association of Realtors</label>
+				    </p>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col l12">
+				    <div class="input-field">
+				      <textarea id="bio" class="materialize-textarea" length="2000" name="bio"></textarea>
+				      <label>Personal Bio</label>
+				    </div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col s12 l6">
+						<div class="input-field">
+							<textarea id="distinctions" class="materialize-textarea" length="600" name="distinctions"></textarea>
+							<label>Distinctions</label>
+						</div>
+					</div>
+					<div class="col s12 l6">
+						<div class="input-field">
+							<textarea id="specialties" class="materialize-textarea" length="600" name="specialties"></textarea>
+							<label>Specialties</label>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col l12">
+				    <p>
+				      <input type="checkbox" class="filled-in checkbox-green" id="acknowledgement" />
+				      <label for="acknowledgement">Agreement to <a href="#">Referral Terms</a></label>
+				    </p>
+					</div>
+				</div>
+				<div class="row">
 					<div class="col l12">
 	    			<button class="btn waves-effect waves-light green" type="submit">Update
 		    			<i class="material-icons right">send</i>
 		  			</button>
 	  			</div>
-				</form>
-			</div>
+				</div>
+			</form>
 		</div>
 		<div class="col s12 l4">
-			{{#if user.local.image}}
-				<img id="profile-img" src="../app/uploads/{{user.local.image}}">
-			{{/if}}
-			<h5>Add a profile image</h5>
-	    <div class="file-field input-field">
-	      <div class="btn">
-	        <span>File</span>
-	        <input type="file" id="upload-input" name="uploads[]" multiple="multiple" accept=".jpeg,.jpg,.png">
-	      </div>
-	      <div class="file-path-wrapper">
-	        <input class="file-path validate" type="text">
-	      </div>
-    	</div>
-    	<div class="service">
-    		<ul style="display:inline-flex">
+    	<div class="service center-align">
+    		<ul style="display:inline-flex;margin-top:0;margin-bottom:0">
     			<li style="margin-right: 10px">
-    				<h5>Service Areas</h5>
+    				<h4 class="col l12" style="margin-top:0;margin-bottom:0">Service Areas</h4>
   				</li>
   				<li>
-    				<a class="btn-floating waves-effect waves-light modal-trigger green" href="#addService" style="margin-top: 7px"><i class="material-icons">note_add</i></a>
+    				<a class="btn-floating waves-effect waves-light modal-trigger green" href="#addService"><i class="material-icons">note_add</i></a>
   				</li>
 				</ul>
     		<hr>

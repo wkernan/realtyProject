@@ -26,6 +26,7 @@ var userSchema = new Schema({
 		image: String,
 		distinctions: String,
 		specialties: String,
+		acknowledgement: Boolean,
 		isAdmin: {
 			type: Boolean,
 			default: 0

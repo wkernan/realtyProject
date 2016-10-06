@@ -66,10 +66,15 @@
 #profile-img {
     height: 200px;
     width: 300px;
-    margin-bottom: 20px;
 }
 
 hr {
-    border-width: 2px;
+    border-color: #BDBDBD;
+    border-width: 1px;
     border-style: solid;
+}
+
+.checkbox-green[type="checkbox"].filled-in:checked + label:after{
+     border: 2px solid #4caf50;
+     background-color: #4caf50;
 }
