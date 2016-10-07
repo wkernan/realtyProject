@@ -126,22 +126,23 @@
 				</div>
 				<div class="row">
 					<div class="input-field col s12 l6">
-						<select>
-							<option value="" disabled selected>Orientation</option>
-							<option value="gay">Gay</option>
-							<option value="lesbian">Lesbian</option>
-							<option value="friendly">Gay/Lesbian Friendly</option>
-							<label>Orientation</label>
+						<select name="orientation" id="orientation">
+								<option disabled selected>Choose your option</option>
+								<option value="Gay">Gay</option>
+								<option value="Lesbian">Lesbian</option>
+								<option value="Gay/Lesbian Friendly">Gay/Lesbian Friendly</option>
 						</select>
+						<label>Orientation</label>
 					</div>
 					<div class="input-field col s12 l6">
-						<select>
-							<option value="" disabled selected>License Type</option>
-							<option value="agent">Real Estate Agent</option>
-							<option value="Abroker">Associate Broker</option>
-							<option value="broker">Broker</option>
-							<option value="owner">Broker/Owner</option>
+						<select name="license" id="license">
+							<option disabled selected>Choose your option</option>
+							<option value="Real Estate Agent">Real Estate Agent</option>
+							<option value="Associate Broker">Associate Broker</option>
+							<option value="Broker">Broker</option>
+							<option value="Broker/Owner">Broker/Owner</option>
 						</select>
+						<label>License</label>
 					</div>
 				</div>
 				<div class="row">
@@ -159,7 +160,7 @@
 				<div class="row">
 					<div class="col l12">
 				    <div class="input-field">
-				      <textarea id="bio" class="materialize-textarea" length="2000" name="bio"></textarea>
+				      <textarea id="bio" class="materialize-textarea" length="2000" name="bio" value="{{user.local.bio}}"></textarea>
 				      <label>Personal Bio</label>
 				    </div>
 					</div>
@@ -167,13 +168,13 @@
 				<div class="row">
 					<div class="col s12 l6">
 						<div class="input-field">
-							<textarea id="distinctions" class="materialize-textarea" length="600" name="distinctions"></textarea>
+							<textarea id="distinctions" class="materialize-textarea" length="600" name="distinctions" value="{{user.local.distinctions}}"></textarea>
 							<label>Distinctions</label>
 						</div>
 					</div>
 					<div class="col s12 l6">
 						<div class="input-field">
-							<textarea id="specialties" class="materialize-textarea" length="600" name="specialties"></textarea>
+							<textarea id="specialties" class="materialize-textarea" length="600" name="specialties" value="{{user.local.specialties}}"></textarea>
 							<label>Specialties</label>
 						</div>
 					</div>
@@ -214,7 +215,7 @@
 			{{#each areas}}
 				<div class="row">
 					<div class="col l12">
-						<div class="card blue-grey center-align">
+						<div class="card grey darken-1 center-align">
 							<form action="/profile/{{this._id}}?_method=delete" method="POST">
 								<div class="card-content white-text">
 									<h5>{{this.country}}</h5>
@@ -262,4 +263,10 @@
 	</div>
 </div>
 
-<script src="../assets/js/upload.js"></script>
+<script>
+	var orientation = '{{user.local.orientation}}';
+	var license = '{{user.local.license}}';
+
+	$('#orientation').val(orientation);
+	$('#license').val(license);
+</script>

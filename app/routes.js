@@ -116,22 +116,22 @@ module.exports = function(app, passport) {
 				query[key] = req.body[key];				
 			}
 		}
-		console.log(query);
-		console.log(req.body.nar);
+
 		var nar;
 		var acknowledgement;
+
 		if(req.body.nar == 'on') {
 			nar = true;
 		} else {
 			nar = false;
 		}
-
 		if(req.body.acknowledgement == 'on') {
 			acknowledgement = true;
 		} else {
 			acknowledgement = false;
 		}
-		User.findOneAndUpdate({ '_id': req.user._id}, {$set: {'local.firstName': req.body.firstName, 'local.lastName': req.body.lastName, 'local.nar': nar, 'local.acknowledgement': acknowledgement}}, {new: true})
+
+		User.findOneAndUpdate({ '_id': req.user._id}, {$set: {'local.firstName': req.body.firstName, 'local.lastName': req.body.lastName, 'local.nar': nar, 'local.acknowledgement': acknowledgement, 'local.orientation': req.body.orientation, 'local.license': req.body.license, 'local.license_year': req.body.license_year, 'local.bio': req.body.bio, 'local.distinctions': req.body.distinctions, 'local.specialties': req.body.specialties}}, {new: true})
 		.exec(function(err, result) {
 			res.redirect('/profile');
 		})
