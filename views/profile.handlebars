@@ -147,7 +147,11 @@
 				<div class="row">
 					<div class="col l12">
 				    <p>
-				      <input type="checkbox" class="filled-in checkbox-green" id="nar" name="nar" />
+				    	{{#if user.local.nar}}
+				    	<input type="checkbox" class="filled-in checkbox-green" id="nar" name="nar" checked="checked">
+				    	{{else}}
+				      	<input type="checkbox" class="filled-in checkbox-green" id="nar" name="nar" />
+				      {{/if}}
 				      <label for="nar">Member of the National Association of Realtors</label>
 				    </p>
 					</div>
@@ -177,7 +181,11 @@
 				<div class="row">
 					<div class="col l12">
 				    <p>
-				      <input type="checkbox" class="filled-in checkbox-green" id="acknowledgement" name="acknowledgement" />
+				    	{{#if user.local.acknowledgement}}
+				    		<input type="checkbox" class="filled-in checkbox-green" id="acknowledgement" name="acknowledgement" checked="checked">
+				    	{{else}}
+				      	<input type="checkbox" class="filled-in checkbox-green" id="acknowledgement" name="acknowledgement" />
+				      {{/if}}
 				      <label for="acknowledgement">Agreement to <a href="#">Referral Terms</a></label>
 				    </p>
 					</div>

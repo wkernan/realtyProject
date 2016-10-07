@@ -118,7 +118,20 @@ module.exports = function(app, passport) {
 		}
 		console.log(query);
 		console.log(req.body.nar);
-		User.findOneAndUpdate({ '_id': req.user._id}, {$set: {'local.firstName': req.body.firstName, 'local.lastName': req.body.lastName}}, {new: true})
+		var nar;
+		var acknowledgement;
+		if(req.body.nar == 'on') {
+			nar = true;
+		} else {
+			nar = false;
+		}
+
+		if(req.body.acknowledgement == 'on') {
+			acknowledgement = true;
+		} else {
+			acknowledgement = false;
+		}
+		User.findOneAndUpdate({ '_id': req.user._id}, {$set: {'local.firstName': req.body.firstName, 'local.lastName': req.body.lastName, 'local.nar': nar, 'local.acknowledgement': acknowledgement}}, {new: true})
 		.exec(function(err, result) {
 			res.redirect('/profile');
 		})
