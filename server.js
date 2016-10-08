@@ -9,7 +9,7 @@ var passport = require('passport');
 var flash = require('connect-flash');
 var configDB = require('./config/database');
 
-mongoose.connect('mongodb://localhost/rainbowrealty');
+mongoose.connect(configDB.url);
 
 var app = express();
 
