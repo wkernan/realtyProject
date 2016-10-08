@@ -6,12 +6,12 @@ var formidable = require('formidable');
 var path = require('path');
 var fs = require('fs');
 
-// var mailOptions = {
-// 	from: '"Bill Kernan ?" <wkernan@gmail.com>',
-// 	to: 'wkernan@gmail.com',
-// 	subject: 'Worked',
-// 	text: 'Looks like it is working'
-// };
+var mailOptions = {
+	from: '"Bill Kernan" <wkernan@gmail.com>',
+	to: 'wkernan@gmail.com',
+	subject: 'Worked',
+	text: 'Looks like it is working'
+};
 
 module.exports = function(app, passport) {
 
@@ -108,6 +108,19 @@ module.exports = function(app, passport) {
 		})
 	})
 
+	app.put('/verified/:id', function(req, res) {
+		User.findOneAndUpdate({'_id': req.params.id}, {$set: {'local.isVerified': true}}, {new: true})
+		.exec(function(err, result) {
+			transporter.sendMail(mailOptions, function(err, info) {
+				if(err) {
+					return console.log(err);
+				}
+				console.log('message sent: ' + info.response);
+			});
+			res.redirect('/admin');
+		})
+	})
+
 	app.put('/profile', function(req, res) {
 		var query = {};
 		for(key in req.body){
@@ -147,12 +160,6 @@ module.exports = function(app, passport) {
 	})
 
 	app.get('/admin', isAdmin, function(req, res) {
-		// transporter.sendMail(mailOptions, function(err, info) {
-		// 	if(err) {
-		// 		return console.log(err);
-		// 	}
-		// 	console.log('message sent: ' + info.response);
-		// })
 		User.find({}).exec(function(err, result) {
 			console.log(result);
 			res.render('admin', {user: req.user, agent: result});
