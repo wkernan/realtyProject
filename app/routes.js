@@ -77,7 +77,7 @@ module.exports = function(app, passport) {
 	}));
 
 	app.get('/search', function(req, res) {
-		User.find({'local.city': req.query.city, 'local.state': req.query.state}).exec(function(err, result){
+		User.find({'local.areas.city': req.query.city, 'local.areas.state': req.query.state}).populate('local.areas').exec(function(err, result){
 			console.log(result);
 			res.render('search', {user: req.user, agents: result});
 		});
@@ -97,7 +97,6 @@ module.exports = function(app, passport) {
 		.populate('local.areas')
 		.exec(function(err, result) {
 			result = result[0];
-			console.log(result);
 			res.render('profile', {user: req.user, areas: result.local.areas});
 		})
 	});
