@@ -153,7 +153,7 @@ module.exports = function(app, passport) {
 		// 	}
 		// 	console.log('message sent: ' + info.response);
 		// })
-		User.find({'local.isVerified': false}).exec(function(err, result) {
+		User.find({}).exec(function(err, result) {
 			console.log(result);
 			res.render('admin', {user: req.user, agent: result});
 		})
