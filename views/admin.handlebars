@@ -2,3 +2,6 @@
 
 <h1>Reached the admin page</h1>
 <h1>isAdmin: {{user.local.isAdmin}}</h1>
+{{#each agent}}
+	<h5>{{this.local.isVerified}}</h5>
+{{/each}}

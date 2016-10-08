@@ -27,6 +27,14 @@ var userSchema = new Schema({
 		distinctions: String,
 		specialties: String,
 		acknowledgement: Boolean,
+		isFrozen: {
+			type: Boolean,
+			default: 0
+		},
+		isVerified: {
+			type: Boolean,
+			default: 0
+		},
 		isAdmin: {
 			type: Boolean,
 			default: 0
