@@ -1,5 +1,5 @@
 module.exports = {
 
-	'url' : process.env.MONGODB_URI || 'mongodb://localhost'
+	'url' : process.env.MONGODB_URI;
 
 };
