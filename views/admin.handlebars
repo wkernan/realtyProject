@@ -38,12 +38,12 @@
 				</div>
 			</div>
 		</div>
+		{{#each agent}}
+			<form action="/verified/{{this._id}}?_method=put" method="POST">
+				<button class="btn green adminButton" type="submit">verify</button>
+			</form>
+		{{/each}}
 	</div>
-	{{#each agent}}
-		<form action="/verified/{{this._id}}?_method=put" method="POST">
-			<button type="submit">verify</button>
-		</form>
-	{{/each}}
 </main>
 
 {{> footer}}

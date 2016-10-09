@@ -142,3 +142,7 @@ footer.page-footer {
 #contactModal .row {
     margin-bottom: 0;
 }
+
+.adminButton {
+    margin: 5px 0;
+}
