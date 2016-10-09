@@ -28,9 +28,43 @@ module.exports = function(passport) {
 					return done(null, false);
 				} else {
 					var newUser = new User();
+					var nar;
+					var acknowledgement;
+
+					if(req.body.nar == 'on') {
+						nar = true;
+					} else {
+						nar = false;
+					}
+
+					if(req.body.acknowledgement == 'on') {
+						acknowledgement = true;
+					} else {
+						acknowledgement = false;
+					}
 
 					newUser.local.email = email;
 					newUser.local.password = newUser.generateHash(password);
+					newUser.local.firstName = req.body.firstName;
+					newUser.local.lastName = req.body.lastName;
+					newUser.local.company = req.body.company;
+					newUser.local.website = req.body.website;
+					newUser.local.address1 = req.body.address1;
+					newUser.local.address2 = req.body.address2;
+					newUser.local.country = req.body.country;
+					newUser.local.state = req.body.state;
+					newUser.local.city = req.body.city;
+					newUser.local.zipcode = req.body.zipcode;
+					newUser.local.phone = req.body.phone;
+					newUser.local.cell = req.body.cell;
+					newUser.local.orientation = req.body.orientation;
+					newUser.local.bio = req.body.bio;
+					newUser.local.license = req.body.license;
+					newUser.local.license_year = req.body.license_year;
+					newUser.local.nar = nar;
+					newUser.local.distinctions = req.body.distinctions;
+					newUser.local.specialties = req.body.specialties;
+					newUser.local.acknowledgement = acknowledgement;
 
 					newUser.save(function(err) {
 						if (err)

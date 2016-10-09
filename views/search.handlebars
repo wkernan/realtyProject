@@ -1,29 +1,33 @@
 {{>nav}}
-<h1>Search</h1>
-<div id="row">
-	<form class="col s12 16" method='GET' action='/search/'>
-		<div class="row">
-  			<div class="input-field col s2">
-    			<input id="city" type="text" name="city">
-    			<label>City</label>
-  			</div>
-  			<div class="input-field col s2">
-    			<input id="state" type="text" name="state">
-    			<label>State</label>
-  			</div>
-	    </div>
-	    <button class="btn waves-effect waves-light green" type="submit">Submit
-	    	<i class="material-icons right">send</i>
-	  	</button>
-	</form>
-</div>
-<div class="row" id="searchResultList">
-	{{#each agents}}
-	<div class="searchResultItem">
-		<h5>Name: {{this.local.firstName}} {{this.local.lastName}}</h5>
-		{{#each this.local.area}}
-			<h5>City: {{this.city}}, {{this.state}}</h5>
+<main>
+	<h1>Search</h1>
+	<div id="row">
+		<form class="col s12 16" method='GET' action='/search/'>
+			<div class="row">
+	  			<div class="input-field col s2">
+	    			<input id="city" type="text" name="city">
+	    			<label>City</label>
+	  			</div>
+	  			<div class="input-field col s2">
+	    			<input id="state" type="text" name="state">
+	    			<label>State</label>
+	  			</div>
+		    </div>
+		    <button class="btn waves-effect waves-light green" type="submit">Submit
+		    	<i class="material-icons right">send</i>
+		  	</button>
+		</form>
+	</div>
+	<div class="row" id="searchResultList">
+		{{#each agents}}
+		<div class="searchResultItem">
+			<h5>Name: {{this.local.firstName}} {{this.local.lastName}}</h5>
+			{{#each this.local.area}}
+				<h5>City: {{this.city}}, {{this.state}}</h5>
+			{{/each}}
+		</div>
 		{{/each}}
 	</div>
-	{{/each}}
-</div>
+</main>
+
+{{> footer}}

@@ -1,21 +1,150 @@
 {{>nav}}
-<div class="container">
-	<h1>Signup</h1>
-	<form action="/signup" method="POST">
-		<div class="row">
-			<div class="input-field col l6 s12">
-				<input type="email" id="email" name="email" class="validate">
-				<label>Email</label>
+<main>
+	<div class="container">
+		<h3 class="center-align">Signup</h3>
+		<form action="/signup" method="POST">
+			<div class="row">
+				<div class="input-field col l6 s12">
+					<input type="email" id="email" name="email" class="validate" required>
+					<label data-error="Please enter a valid email address" data-success="right">Email</label>
+				</div>
+				<div class="input-field col l6 s12">
+					<input type="password" id="password" name="password" class="validate" required>
+					<label>Password</label>
+				</div>
 			</div>
-		</div>
-		<div class="row">
-			<div class="input-field col l6 s12">
-				<input type="password" id="password" name="password" class="validate">
-				<label>Password</label>
+			<div class="row">
+				<div class="input-field col s12 l4">
+					<input id="first_name" type="text" name="firstName" value="{{user.local.firstName}}" required>
+					<label>First Name</label>
+				</div>
+				<div class="input-field col s12 l4">
+					<input id="last_name" type="text" name="lastName" value="{{user.local.lastName}}" required>
+					<label>Last Name (not visible to buyer/seller)</label>
+				</div>
+				<div class="input-field col s12 l4">
+					<select name="orientation" id="orientation" required>
+						<option disabled selected>Choose your option</option>
+						<option value="Gay">Gay</option>
+						<option value="Lesbian">Lesbian</option>
+						<option value="Gay/Lesbian Friendly">Gay/Lesbian Friendly</option>
+					</select>
+					<label>Orientation</label>
+				</div>
 			</div>
-		</div>
-		<button class="btn waves-effect waves-light green" type="submit" name="action">Signup
-	    <i class="material-icons right">send</i>
-	  </button>
-	</form>
-</div>
+			<div class="row">
+				<div class="input-field col s12 l4">
+					<input id="website" type="text" name="website" value="{{user.local.website}}">
+					<label>Website (not visible to buyer/seller)</label>
+				</div>
+				<div class="input-field col s12 l4">
+					<select name="license" id="license" required>
+						<option disabled selected>Choose your option</option>
+						<option value="Real Estate Agent">Real Estate Agent</option>
+						<option value="Associate Broker">Associate Broker</option>
+						<option value="Broker">Broker</option>
+						<option value="Broker/Owner">Broker/Owner</option>
+					</select>
+					<label>License Type</label>
+				</div>
+				<div class="input-field col s12 l4">
+					<input id="license_year" type="number" name="license_year" value="{{user.local.license_year}}" required>
+					<label>First Year Licensed</label>
+				</div>
+			</div>
+			<div class="row">
+				<div class="input-field col s12 l6">
+					<input id="company_name" type="text" name="company" value="{{user.local.company}}">
+					<label>Company Name</label>
+				</div>
+				<div class="input-field col s12 l6">
+					<input id="company_phone" type="text" name="phone" value="{{user.local.phone}}">
+					<label>Company Number (not visible to buyer/seller)</label>
+				</div>
+			</div>
+			<div class="row">
+				<div class="input-field col s12 l4">
+					<input id="country" type="text" name="country" value="{{user.local.country}}">
+					<label>Country (not visible to buyer/seller)</label>
+				</div>
+				<div class="input-field col s12 l4">
+					<input id="address1" type="text" name="address1" value="{{user.local.address1}}">
+					<label>Address 1 (not visible to buyer/seller)</label>
+				</div>
+				<div class="input-field col s12 l4">
+					<input id="address2" type="text" name="address2" value="{{user.local.address2}}">
+					<label>Address 2 (not visible to buyer/seller)</label>
+				</div>
+			</div>
+			<div class="row">
+				<div class="input-field col s12 l4">
+					<input id="city" type="text" name="city" value="{{user.local.city}}">
+					<label>City</label>
+				</div>
+				<div class="input-field col s12 l4">
+					<input id="state" type="text" name="state" value="{{user.local.state}}">
+					<label>State</label>
+				</div>
+				<div class="input-field col s12 l4">
+					<input id="zipcode" type="text" name="zipcode" value="{{user.local.zipcode}}">
+					<label>Zipcode</label>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col l12">
+			    <p>
+			    	{{#if user.local.nar}}
+			    	<input type="checkbox" class="filled-in checkbox-green" id="nar" name="nar" checked="checked">
+			    	{{else}}
+			      	<input type="checkbox" class="filled-in checkbox-green" id="nar" name="nar" />
+			      {{/if}}
+			      <label for="nar">Member of the National Association of Realtors</label>
+			    </p>
+				</div>
+			</div>
+			<div class="row">
+				<div class="input-field col l12">
+		      <textarea id="bio" class="materialize-textarea" length="2000" name="bio" required>{{user.local.bio}}</textarea>
+		      <label>Personal Bio</label>
+				</div>
+			</div>
+			<div class="row">
+				<div class="input-field col s12 l6">
+					<textarea id="distinctions" class="materialize-textarea" length="600" name="distinctions" required>{{user.local.distinctions}}</textarea>
+					<label>Distinctions</label>
+				</div>
+				<div class="input-field col s12 l6">
+					<textarea id="specialties" class="materialize-textarea" length="600" name="specialties" required>{{user.local.specialties}}</textarea>
+					<label>Specialties</label>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col l12">
+			    <p>
+		      	<input type="checkbox" class="filled-in checkbox-green" id="acknowledgement" name="acknowledgement" />
+			      <label for="acknowledgement">Agreement to <a href="#">Referral Terms</a></label>
+			    </p>
+				</div>
+			</div>
+			<div class="row center-align">
+				<div class="col l12">
+					<button id="signup" class="btn-large waves-effect waves-light green" type="submit" name="action" disabled>Signup
+				    <i class="material-icons right">send</i>
+				  </button>
+			  </div>
+		  </div>
+		</form>
+	</div>
+</main>
+
+{{> footer}}
+
+<script>
+	$('#acknowledgement').change(function() {
+		if(this.checked) {
+			$('#signup').prop('disabled', false);
+		} else {
+			$('#signup').prop('disabled', true);
+		}
+	})
+</script>

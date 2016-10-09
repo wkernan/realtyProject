@@ -1,22 +1,26 @@
-{{>nav}}
-<div class="container">
-	<h1>Login</h1>
-	<form action="/login" method="POST">
-		<div class="row">
-			<div class="input-field col l6 s12">
-				<input type="email" id="email" name="email" class="validate">
-				<label>Email</label>
-			</div>
-		</div>
-		<div class="row">
-			<div class="input-field col l6 s12">
-				<input type="password" id="password" name="password" class="validate">
-				<label>Password</label>
-			</div>
-		</div>
-		<button class="btn waves-effect waves-light green" type="submit" name="action">Login
-	    <i class="material-icons right">send</i>
-	  </button>
-	</form>
-</div>
+{{> nav}}
 
+<main>
+	<div class="container">
+		<h1>Login</h1>
+		<form action="/login" method="POST">
+			<div class="row">
+				<div class="input-field col l6 s12">
+					<input type="email" id="email" name="email" class="validate">
+					<label>Email</label>
+				</div>
+			</div>
+			<div class="row">
+				<div class="input-field col l6 s12">
+					<input type="password" id="password" name="password" class="validate">
+					<label>Password</label>
+				</div>
+			</div>
+			<button class="btn waves-effect waves-light green" type="submit" name="action">Login
+		    <i class="material-icons right">send</i>
+		  </button>
+		</form>
+	</div>
+</main>
+
+{{> footer}}

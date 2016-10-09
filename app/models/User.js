@@ -22,7 +22,10 @@ var userSchema = new Schema({
 		bio: String,
 		license: String,
 		license_year: Number,
-		nar: Boolean,
+		nar: {
+			type: Boolean,
+			default: 0
+		},
 		image: String,
 		distinctions: String,
 		specialties: String,

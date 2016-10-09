@@ -1,45 +1,49 @@
 {{> nav}}
 
-<h4 class="center-align">Admin</h4>
-<hr>
-<div class="container">
-	<div class="row" style="margin-top:20px">
-		<form class="col l12">
-			<div class="row">
-				<div class="input-field col l4">
-			    <select>
-			      <option value="" disabled selected>Choose your option</option>
-			      <option value="1">Verified</option>
-			      <option value="2">Unverified</option>
-			    </select>
-			    <label>Sort by verification</label>
-				</div>
-				<div class="input-field col l4">
-			    <select>
-			      <option value="" disabled selected>Choose your option</option>
-			      <option value="1">Frozen</option>
-			      <option value="2">Open</option>
-			    </select>
-			    <label>Sort by frozen</label>
-				</div>
-				<div class="input-field col l4">
-	      	<i class="material-icons prefix">search</i>
-          <input id="search" type="search" required>
-          <label for="search">Search by name</label>
+<main>
+	<h4 class="center-align">Admin</h4>
+	<hr>
+	<div class="container">
+		<div class="row" style="margin-top:20px">
+			<form class="col l12">
+				<div class="row">
+					<div class="input-field col l4">
+				    <select>
+				      <option value="" disabled selected>Choose your option</option>
+				      <option value="1">Verified</option>
+				      <option value="2">Unverified</option>
+				    </select>
+				    <label>Sort by verification</label>
+					</div>
+					<div class="input-field col l4">
+				    <select>
+				      <option value="" disabled selected>Choose your option</option>
+				      <option value="1">Frozen</option>
+				      <option value="2">Open</option>
+				    </select>
+				    <label>Sort by frozen</label>
+					</div>
+					<div class="input-field col l4">
+		      	<i class="material-icons prefix">search</i>
+	          <input id="search" type="search" required>
+	          <label for="search">Search by name</label>
+		      </div>
 	      </div>
-      </div>
-		</form>
-	</div>
-	<div class="row">
-		<div class="col l12">
-			<div id="results">
+			</form>
+		</div>
+		<div class="row">
+			<div class="col l12">
+				<div id="results">
 
+				</div>
 			</div>
 		</div>
 	</div>
-</div>
-{{#each agent}}
-	<form action="/verified/{{this._id}}?_method=put" method="POST">
-		<button type="submit">verify</button>
-	</form>
-{{/each}}
+	{{#each agent}}
+		<form action="/verified/{{this._id}}?_method=put" method="POST">
+			<button type="submit">verify</button>
+		</form>
+	{{/each}}
+</main>
+
+{{> footer}}
