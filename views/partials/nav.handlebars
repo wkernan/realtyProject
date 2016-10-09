@@ -18,6 +18,9 @@
 		        <ul class="dropdown-content" id="dropdown1">
 		        	<li><a href="/profile">Profile</a></li>
 		        	<li><a href="/referral">Referrals</a></li>
+		        	{{#if user.local.isAdmin}}
+		        		<li><a herf="/admin">Admin</a></li>
+		        	{{/if}}
 		        	<li><a href="/logout">Logout</a></li>
 	        	</ul>
 		      {{else}}
@@ -29,7 +32,11 @@
 		    <ul id="nav-settings" class="side-nav">
 		      <li><a href="/search">Agent Search</a></li>
 		      {{#if user}}
-		        <li><a href="/profile">Hi, {{user.firstName}}!</a></li>
+		        <li><a href="/profile">Hi, {{user.local.firstName}}!</a></li>
+		        <li><a href="/referral">Referrals</a></li>
+		        {{#if user.local.isAdmin}}
+		        	<li><a href="/admin">Admin</a></li>
+		        {{/if}}
 		        <li><a href="/logout">Logout</a></li>
 		      {{else}}
 		        <li><a href="/login">Agent Login</a></li>

@@ -55,7 +55,7 @@ main {
 }
 
 .video-container .title-container {
-    z-index: 1000;
+    z-index: 995;
     position: absolute;
     top: 15%;
     width: 100%;
