@@ -42,8 +42,14 @@ var userSchema = new Schema({
 			type: Boolean,
 			default: 0
 		},
-		areas: [{type: Schema.Types.ObjectId,
-      ref: 'Area'}]
+		areas: [{
+			type: Schema.Types.ObjectId,
+      ref: 'Area'
+    }],
+    referrals: [{
+    	type: Schema.Types.ObjectId,
+    	ref: 'Referral'
+    }]
 	}
 });
 

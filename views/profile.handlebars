@@ -1,5 +1,7 @@
+
+{{>nav}}
+
 {{#if user.local.isVerified}}	
-	{{>nav}}
 	<main>
 		<div class="container">
 			<div class="row profile">
@@ -266,7 +268,7 @@
 		</div>
 {{else}}
 	<main>
-		<h3 class="center-align">Please wait for an admin to verify</h3>
+		<h3 class="center-align">You will receive an email shortly when an admin has approved your account.</h3>
 {{/if}}
 	</main>
 {{> footer}}

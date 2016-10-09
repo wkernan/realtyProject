@@ -1,5 +1,14 @@
 var localStrategy = require('passport-local').Strategy;
 var User = require('../app/models/User');
+var nodemailer = require('nodemailer');
+var transporter = nodemailer.createTransport('smtps://anonrealty%40gmail.com:hell0w0rld@smtp.gmail.com');
+
+var mailOptions = {
+	from: '"Bill Kernan" <wkernan@gmail.com>',
+	to: 'wkernan@gmail.com',
+	subject: 'Worked',
+	text: 'Looks like it is working'
+};
 
 module.exports = function(passport) {
 	passport.serializeUser(function(user, done) {
@@ -67,9 +76,37 @@ module.exports = function(passport) {
 					newUser.local.acknowledgement = acknowledgement;
 
 					newUser.save(function(err) {
-						if (err)
+						if (err) {
 							throw err;
-						return done(null, newUser);
+						} else {
+							var mailToAdmin = {
+								from: 'Anonymous Realty',
+								to: 'wkernan@gmail.com',
+								subject: 'New Agent Signup',
+								html: "<h2>A new agent has signed up!</h2><form action='http://localhost:3000/verified/" + newUser._id + "?_method=put' method='POST'><button type='submit'>Verify</button></form>"
+							};
+
+							var mailToAgent = {
+								from: 'Anonymous Realty',
+								to: newUser.local.email,
+								subject: 'New Account with Anonymous Realty',
+								html: "<h2>Thank you for signing up, please wait while our admin verify your account</h2><h3>You will recieve an email shortly letting you know your account is ready!</h3>"
+							};
+
+							transporter.sendMail(mailToAdmin, function(err, info) {
+								if(err) {
+									return console.log(err);
+								}
+								console.log('message sent');
+							});
+							transporter.sendMail(mailToAgent, function(err, info) {
+								if(err) {
+									return console.log(err);
+								}
+								console.log('message sent');
+							});
+							return done(null, newUser);
+						}
 					});
 				}
 			});

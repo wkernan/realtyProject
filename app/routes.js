@@ -1,17 +1,11 @@
 var User = require('./models/User');
 var Area = require('./models/Area');
+var Referral = require('./models/Referral');
 var nodemailer = require('nodemailer');
 var transporter = nodemailer.createTransport('smtps://anonrealty%40gmail.com:hell0w0rld@smtp.gmail.com');
 var formidable = require('formidable');
 var path = require('path');
 var fs = require('fs');
-
-var mailOptions = {
-	from: '"Bill Kernan" <wkernan@gmail.com>',
-	to: 'wkernan@gmail.com',
-	subject: 'Worked',
-	text: 'Looks like it is working'
-};
 
 module.exports = function(app, passport) {
 
@@ -90,7 +84,7 @@ module.exports = function(app, passport) {
 			result = result[0];
 			res.render('agent', {agent: result});
 		})
-	})
+	});
 
 	app.get('/profile', isLoggedIn, function(req, res) {
 		User.find({'_id': req.user._id})
@@ -101,21 +95,36 @@ module.exports = function(app, passport) {
 		})
 	});
 
+	app.get('/referral', isLoggedIn, function(req, res) {
+		User.find({'_id': req.user._id})
+		.populate('local.referrals')
+		.exec(function(err, result) {
+			result = result[0];
+			res.render('referral', {user: req.user, referrals: result.local.referrals});
+		})
+	})
+
 	app.delete('/profile/:id', isLoggedIn, function(req, res) {
 		Area.find({'_id': req.params.id}).remove()
 		.exec(function(err, result) {
 			res.redirect('/profile');
 		})
-	})
+	});
 
 	app.put('/verified/:id', function(req, res) {
 		User.findOneAndUpdate({'_id': req.params.id}, {$set: {'local.isVerified': true}}, {new: true})
 		.exec(function(err, result) {
+			var mailOptions = {
+				from: 'Anonymous Realty',
+				to: result.local.email,
+				subject: 'Account Approved',
+				html: '<h1>Thank You!</h1><h2>Your account has been approved</h2><h2><a href="http://localhost:3000/login">Click</a> here to log in</h2>'
+			};
 			transporter.sendMail(mailOptions, function(err, info) {
 				if(err) {
 					return console.log(err);
 				}
-				console.log('message sent: ' + info.response);
+				console.log('message sent');
 			});
 			res.redirect('/admin');
 		})
@@ -147,6 +156,30 @@ module.exports = function(app, passport) {
 		.exec(function(err, result) {
 			res.redirect('/profile');
 		})
+	});
+
+	app.post('/referral', function(req, res) {
+		var newReferral = new Referral({'refFirstName': req.body.firstName, 'refLastName': req.body.lastName, 'refPhone': req.body.phone, 'refEmail': req.body.email, 'refInterest': req.body.interest, 'refComments': req.body.comments});
+		newReferral.save(function(err,doc) {
+			User.findOneAndUpdate({'_id': req.body.id}, {$push: {'local.referrals': doc._id}}, {new: true})
+			.exec(function(err, result) {
+				var mailToAgent = {
+					to: req.body.agentEmail,
+					from: req.body.email,
+					subject: 'You have a new referral',
+					html: '<h1>' + req.body.firstName + ' ' + req.body.lastName + ' is interested in ' + req.body.interest + '</h1><h2><a href="http://localhost:3000/login">Log in</a> to view and confirm</h2>'
+				}
+
+				transporter.sendMail(mailToAgent, function(err, info) {
+					if(err) {
+						return console.log(err);
+					}
+					console.log('message sent');
+				});
+
+				res.redirect('back');
+			})
+		})
 	})
 
 	app.post('/profile', function(req, res) {
@@ -161,7 +194,6 @@ module.exports = function(app, passport) {
 
 	app.get('/admin', isAdmin, function(req, res) {
 		User.find({}).exec(function(err, result) {
-			console.log(result);
 			res.render('admin', {user: req.user, agent: result});
 		})
 	});

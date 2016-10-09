@@ -95,6 +95,56 @@
 			</div>
 		</div>
 	</div>
+	<div id="contact" class="modal">
+		<div class="modal-content">
+			<form action="/referral" method="POST" id="contactModal">
+  			<h5 class="center-align">Service Area</h5>
+  			<div class="row">
+  				<input type="hidden" name="agentEmail" value="{{agent.local.email}}">
+	  			<input type="hidden" name="id" value="{{agent._id}}">
+	  			<div class="input-field col s6">
+	  				<input type="text" name="firstName">
+	  				<label>First Name</label>
+	  			</div>
+	  			<div class="input-field col s6">
+	  				<input type="text" name="lastName">
+	  				<label>Last Name</label>
+	  			</div>
+  			</div>
+  			<div class="row">
+	  			<div class="input-field col s6">
+	  				<input type="text" name="phone">
+	  				<label>Phone Number</label>
+	  			</div>
+	  			<div class="input-field col s6">
+	  				<input type="email" name="email">
+	  				<label>Email</label>
+	  			</div>
+  			</div>
+  			<div class="row">
+					<div class="input-field col s6">
+						<select name="interest">
+							<option disabled selected>Choose your option</option>
+							<option value="Buying">Buying</option>
+							<option value="Selling">Selling</option>
+							<option value="Buying & Selling">Buying & Selling</option>
+							<option value="Renting or Other">Renting or Other</option>
+						</select>
+						<label>Interest</label>
+					</div>
+				</div>
+				<div class="row">
+					<div class="input-field col s12">
+						<textarea class="materialize-textarea" length="600" name="comments"></textarea>
+						<label>Comments</label>
+					</div>
+				</div>
+  			<button class="btn waves-effect waves-light green" type="submit">Submit
+  				<i class="material-icons right">send</i>
+				</button>
+			</form>
+		</div>
+	</div>
 </main>
 
 {{> footer}}

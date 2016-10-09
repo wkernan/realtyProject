@@ -1,0 +1,16 @@
+{{> nav}}
+<main>
+	<div class="container">
+	{{#if user.local.isVerified}}
+		{{#each referrals}}
+			<h5>{{this.refFirstName}}</h5>
+			<h5>{{this.refComments}}</h5>
+			<h5>{{this.refInterest}}</h5>
+		{{/each}}
+	{{else}}
+
+	{{/if}}
+	</div>
+</main>
+
+{{> footer}}

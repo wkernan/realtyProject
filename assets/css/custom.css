@@ -134,3 +134,11 @@ hr {
 footer.page-footer {
     padding-top: 0;
 }
+
+#contactModal h5 {
+    margin: 0;
+}
+
+#contactModal .row {
+    margin-bottom: 0;
+}
