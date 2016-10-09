@@ -81,9 +81,9 @@ module.exports = function(passport) {
 						} else {
 							var mailToAdmin = {
 								from: 'Anonymous Realty',
-								to: 'wkernan@gmail.com',
+								to: 'anonrealty@gmail.com',
 								subject: 'New Agent Signup',
-								html: "<h2>A new agent has signed up!</h2><form action='http://localhost:3000/verified/" + newUser._id + "?_method=put' method='POST'><button type='submit'>Verify</button></form>"
+								html: "<h2>A new agent has signed up! Click the Verify button to confirm their request.</h2><h5>Agent Name: " + newUser.local.firstName + ' ' + newUser.local.lastName + "</h5><h5>Agent Email: " + newUser.local.email + "</h5><form action='http://anon-realty.herokuapp.com/verified/" + newUser._id + "?_method=put' method='POST'><button type='submit'>Verify</button></form>"
 							};
 
 							var mailToAgent = {
