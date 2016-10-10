@@ -82,7 +82,7 @@ module.exports = function(app, passport) {
 		.populate('local.areas')
 		.exec(function(err, result) {
 			result = result[0];
-			res.render('agent', {agent: result});
+			res.render('agent', {user: req.user, agent: result});
 		})
 	});
 
@@ -229,5 +229,6 @@ function isAdmin(req,res,next) {
 function isLoggedIn(req, res, next) {
 	if(req.isAuthenticated())
 		return next();
-	res.redirect('/');
+	req.session.returnTo = req.path;
+	res.redirect('/login');
 }

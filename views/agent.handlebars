@@ -98,7 +98,7 @@
 	<div id="contact" class="modal">
 		<div class="modal-content">
 			<form action="/referral" method="POST" id="contactModal">
-  			<h5 class="center-align">Service Area</h5>
+  			<h5 class="center-align">Contact {{agent.local.firstName}}</h5>
   			<div class="row">
   				<input type="hidden" name="agentEmail" value="{{agent.local.email}}">
 	  			<input type="hidden" name="id" value="{{agent._id}}">
