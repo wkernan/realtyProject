@@ -83,7 +83,7 @@ module.exports = function(passport) {
 								from: 'Anonymous Realty',
 								to: 'anonrealty@gmail.com',
 								subject: 'New Agent Signup',
-								html: "<h2>A new agent has signed up! Click the Verify button to confirm their request.</h2><h5>Agent Name: " + newUser.local.firstName + ' ' + newUser.local.lastName + "</h5><h5>Agent Email: " + newUser.local.email + "</h5><form action='http://anon-realty.herokuapp.com/verified/" + newUser._id + "?_method=put' method='POST'><button type='submit'>Verify</button></form>"
+								html: "<h2>A new agent has signed up! Their information is below. Click the Verify button to confirm their request.</h2><ul><li style='float:left;margin:10px;'><h5>Agent Name: " + newUser.local.firstName + ' ' + newUser.local.lastName + "</h5></li><li style='float:left;margin:10px'><h5>Agent Email: " + newUser.local.email + "</h5></li><li style='float:left;margin:10px'><h5>Orientation: " + newUser.local.orientation + "</h5></li></ul><ul><li style='float:left;margin:10px'><h5>License: " + newUser.local.license + "</h5></li><li style='float:left;margin:10px'>License Type: " + newUser.local.license_year + "</li><li style='float:left;margin:10px'>Website: " + newUser.local.website + "</li></ul><form action='http://anon-realty.herokuapp.com/verified/" + newUser._id + "?_method=put' method='POST'><button type='submit'>Verify</button></form>"
 							};
 
 							var mailToAgent = {
