@@ -23,7 +23,7 @@ function filter(list, param, type){
 
 function populate(target, list, query){
 	for(var i = 0; i < list.length; i++){
-		var resultElement = '<div id="searchResultItem"><p>' + list[i].name + '</p><p><a href="/agent/' + list[i].id + '">View Profile</a></p></div>';
+		var resultElement = '<div class="searchResultItem"><p>' + list[i].name + '</p><p><a href="/agent/' + list[i].id + '">View Profile</a></p></div>';
 		$('#' + target).append(resultElement);
 	}
 	$('#' + target).prepend('<h4>Showing ' + list.length + ' result(s) for ' + query + '</h4>');
