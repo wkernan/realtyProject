@@ -72,8 +72,7 @@ module.exports = function(app, passport) {
 	}));
 
 	app.get('/search', function(req, res) {
-		User.find({'local.areas.city': req.query.city, 'local.areas.state': req.query.state}).populate('local.areas').exec(function(err, result){
-			console.log(result);
+		User.find({}).populate('local.areas').exec(function(err, result){
 			res.render('search', {user: req.user, agents: result});
 		});
 	});
