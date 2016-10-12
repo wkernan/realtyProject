@@ -167,7 +167,7 @@ module.exports = function(app, passport) {
 					to: req.body.agentEmail,
 					from: req.body.email,
 					subject: 'You have a new referral',
-					html: '<h1>' + req.body.firstName + ' ' + req.body.lastName + ' is interested in ' + req.body.interest + '</h1><h2><a href="http://localhost:3000/login">Log in</a> to view and confirm</h2>'
+					html: '<h1>' + req.body.firstName + ' ' + req.body.lastName + ' is interested in ' + req.body.interest + '</h1><h2>You can call them @ <a href="tel:' + req.body.phone + '">' + req.body.phone + '</a></h2><h2>Comments: ' + req.body.comments + '</h2><h2><a href="http://localhost:3000/login">Log in</a> to view and confirm</h2>'
 				}
 
 				transporter.sendMail(mailToAgent, function(err, info) {
@@ -179,6 +179,27 @@ module.exports = function(app, passport) {
 
 				res.redirect('back');
 			})
+		})
+	})
+
+	app.put('/referral/accept/:id', function(req, res) {
+		Referral.findOneAndUpdate({'_id': req.params.id}, {$set: {'isActive': true, 'isPending': false, 'isDeclined': false}}, {new: true})
+		.exec(function(err, result) {
+			res.redirect('/referral');
+		})
+	})
+
+	app.put('/referral/decline/:id', function(req, res) {
+		Referral.findOneAndUpdate({'_id': req.params.id}, {$set: {'isPending': false, 'isDeclined': true}}, {new: true})
+		.exec(function(err, result) {
+			res.redirect('/referral');
+		})
+	})
+
+	app.put('/referral/complete/:id', function(req, res) {
+		Referral.findOneAndUpdate({'_id': req.params.id}, {$set: {'isActive': false, 'isComplete': true}}, {new: true})
+		.exec(function(err, result) {
+			res.redirect('/referral');
 		})
 	})
 
