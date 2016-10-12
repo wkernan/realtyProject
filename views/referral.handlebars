@@ -1,15 +1,60 @@
 {{> nav}}
+
 <main>
 	<div class="container">
-	{{#if user.local.isVerified}}
-		{{#each referrals}}
-			<h5>{{this.refFirstName}}</h5>
-			<h5>{{this.refComments}}</h5>
-			<h5>{{this.refInterest}}</h5>
-		{{/each}}
-	{{else}}
-
-	{{/if}}
+		{{#if user.local.isVerified}}
+		<div class="row">
+			<div class="col s12 l6">
+				<h4 class="center-align" class="newRef">New Referrals</h4>
+				{{#each referrals}}
+					{{#if this.isPending}}
+				    <div class="card horizontal pending">
+				      <div class="card-stacked">
+				        <div class="card-content">
+				          <p>Name: {{this.refFirstName}} {{this.refLastName}}</p>
+				          <p>Email: <a href="mailto:{{this.refEmail}}">{{this.refEmail}}</a> {{this.refEmail}}</p>
+				          <p>Interest: {{this.refInterest}}</p>
+				          <p>Phone Number: <a href="tel:{{this.refPhone}}">{{this.refPhone}}</a></p>
+				          <p>Comments: {{this.refComments}}</p>
+				        </div>
+				        <div class="card-action">
+				        	<form class="left" action="/referral/accept/{{this._id}}?_method=put" method="POST">
+				          	<button type="submit" class="btn green">Accept</button>
+			          	</form>
+			          	<form class="right" action="/referral/decline/{{this._id}}?_method=put" method="POST">
+			          		<button type="submit" class="btn red">Decline</button>
+			          	</form>
+				        </div>
+				      </div>
+				    </div>
+					{{/if}}
+				{{/each}}
+			</div>
+			<div class="col s12 l6">
+				<h4 class="center-align">Active Referrals</h4>
+				{{#each referrals}}
+					{{#if this.isActive}}
+				    <div class="card horizontal">
+				      <div class="card-stacked">
+				        <div class="card-content">
+				          <p>Name: {{this.refFirstName}} {{this.refLastName}}</p>
+				          <p>Email: <a href="mailto:{{this.refEmail}}">{{this.refEmail}}</a></p>
+				          <p>Interest: {{this.refInterest}}</p>
+				          <p>Phone Number: <a href="tel:{{this.refPhone}}">{{this.refPhone}}</a></p>
+				          <p>Comments: {{this.refComments}}</p>
+				        </div>
+				        <div class="card-action">
+				          <form action="/referral/complete/{{this._id}}?_method=put" method="POST">
+				          	<button type="submit" class="btn green">Complete</button>
+				          </form>
+				        </div>
+				      </div>
+				    </div>
+					{{/if}}
+				{{/each}}
+			</div>
+		</div>
+		{{/if}}
 	</div>
 </main>
 

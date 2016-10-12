@@ -38,14 +38,30 @@
 				</div>
 			</div>
 		</div>
+		<div class="row">
 		{{#each agent}}
 			{{#if this.local.isVerified}}
 			{{else}}
-				<form action="/verified/{{this._id}}?_method=put" method="POST">
-					<button class="btn green adminButton" type="submit">verify</button>
-				</form>
+				<div class="card horizontal pending">
+		      <div class="card-stacked">
+		        <div class="card-content">
+		          <p>Name: {{this.local.firstName}} {{this.local.lastName}}</p>
+		          <p>Email: <a href="mailto:{{this.local.email}}">{{this.local.email}}</a></p>
+		          <p>License Type: {{this.local.license}} / License Year: {{this.local.license_year}}</p>
+		          <p>Bio: {{this.local.bio}}</p><br>
+		          <p>Specialties: {{this.local.specialties}}</p><br>
+		          <p>Distinctions: {{this.local.distinctions}}</p>
+		        </div>
+		        <div class="card-action">
+    					<form action="/verified/{{this._id}}?_method=put" method="POST">
+								<button class="btn green adminButton" type="submit">verify</button>
+							</form>
+		        </div>
+		      </div>
+		    </div>
 			{{/if}}
 		{{/each}}
+		</div>
 	</div>
 </main>
 

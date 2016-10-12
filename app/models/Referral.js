@@ -8,7 +8,23 @@ var ReferralSchema = new Schema({
   refPhone: String,
   refEmail: String,
   refInterest: String,
-  refComments: String
+  refComments: String,
+  isActive: {
+  	type: Boolean,
+  	default: false
+  },
+  isPending: {
+  	type: Boolean,
+  	default: true
+  },
+  isDeclined: {
+  	type: Boolean,
+  	default: false
+  },
+  isComplete: {
+  	type: Boolean,
+  	default: false
+  }
 });
 
 var Referral = mongoose.model('Referral', ReferralSchema);
