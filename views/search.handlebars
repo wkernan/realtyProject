@@ -2,32 +2,40 @@
 <main>
 	<h1>Search</h1>
 	<div id="row">
-		<form class="col s12 16" method='GET' action='/search/'>
+		<form class="col s12 16" id="search">
 			<div class="row">
 	  			<div class="input-field col s2">
-	    			<input id="city" type="text" name="city">
+	    			<input id="city" type="text">
 	    			<label>City</label>
 	  			</div>
 	  			<div class="input-field col s2">
-	    			<input id="state" type="text" name="state">
+	    			<input id="state" type="text" maxlength="2" length="2">
 	    			<label>State</label>
 	  			</div>
 		    </div>
-		    <button class="btn waves-effect waves-light green" type="submit">Submit
+		    <button class="btn waves-effect waves-light green" type="submit" id="searchSubmit">Submit
 		    	<i class="material-icons right">send</i>
 		  	</button>
 		</form>
 	</div>
 	<div class="row" id="searchResultList">
-		{{#each agents}}
-		<div class="searchResultItem">
-			<h5>Name: {{this.local.firstName}} {{this.local.lastName}}</h5>
-			{{#each this.local.area}}
-				<h5>City: {{this.city}}, {{this.state}}</h5>
-			{{/each}}
-		</div>
-		{{/each}}
 	</div>
 </main>
 
 {{> footer}}
+
+<script type="text/javascript">
+	var results = [];
+	var areas = [];
+	{{#each agents}}
+		areas = [];
+		{{#each this.local.areas}}
+			areas.push('{{this.city}}, {{this.state}}'.toLowerCase());
+		{{/each}}
+		results.push({id: '{{this._id}}', name: '{{this.local.firstName}}', areas: areas});
+	{{/each}}
+	$('#search').on('submit', function(){
+		search('area');
+		return false;
+	});
+</script>
